@@ -121,3 +121,40 @@ public class Solution {
     }
 }
 ```
+
+### 26.Remove Duplicates from Sorted Array
+```java
+public class Solution {
+    public int removeDuplicates(int[] nums) {
+        if (nums.length == 0){
+            return 0;
+        }
+        int j = 0;
+        for (int i = 0; i < nums.length; i++){
+            if (nums[i] != nums[j]){
+                j++;
+                nums[j] = nums[i];
+            }
+        }
+        return ++j;
+    }
+}
+```
+
+### 1.Two Sum
+```java
+public class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int[] result = new int[2];
+        for (int i = 0; i < nums.length - 1; i++){
+            for (int j = i + 1; j < nums.length; j++){
+                if (nums[i] + nums[j] == target){
+                    result[0] = i;
+                    result[1] = j;
+                }
+            }
+        }
+        return result;
+    }
+}
+```
