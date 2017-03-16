@@ -158,3 +158,41 @@ public class Solution {
     }
 }
 ```
+
+### 27.Remove Element
+```java
+public class Solution {
+    public int removeElement(int[] nums, int val) {
+        if (nums.length == 0){
+            return 0;
+        }
+        int j = 0;
+        for(int i = 0; i < nums.length; i++){
+            if (nums[i] != val){
+                nums[j] = nums[i];
+                j++;
+            }
+        }
+        return j++;
+    }
+}
+```
+### 122.Best Time to Buy and Sell Stock II
+```
+public class Solution {
+    public int maxProfit(int[] prices) {
+        if (prices.length == 0){
+            return 0;
+        }
+        int maxProfit = 0;
+        int i = 0;
+        while(i != prices.length - 1){
+            if( prices[i] < prices[i + 1]){
+                maxProfit += prices[i + 1] - prices[i];
+            }
+            i++;
+        }
+        return maxProfit;
+    }
+}
+```
