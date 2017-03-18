@@ -196,3 +196,47 @@ public class Solution {
     }
 }
 ```
+
+### 268.Missing Number
+- My Solution 
+```java
+public class Solution {
+    public int missingNumber(int[] nums) {
+       if(nums.length == 0){
+           return 0;
+       }else{
+           int i;
+           for (i = 0; i < nums.length; i++){
+               for (int j = i; j < nums.length; j++){
+                   if (nums[j] == i){
+                       if (j == i){
+                           break;
+                       }else{
+                           int tmp = nums[i];
+                           nums[i] = nums[j];
+                           nums[j] = tmp;
+                           break;
+                       }
+                   }
+                   if (j == nums.length - 1){
+                       return i;
+                   }
+               }
+           }
+           return i;
+       }
+    }
+}
+```
+- Better Solution
+```
+public class Solution {
+    public int missingNumber(int[] nums) {
+       int sum = 0;
+       for (int i : nums){
+           sum += i;
+       }
+       return (nums.length * (nums.length + 1)) / 2 - sum;
+    }
+}
+```
