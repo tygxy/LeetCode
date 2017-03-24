@@ -240,3 +240,64 @@ public class Solution {
     }
 }
 ```
+
+### 217. Contains Duplicate
+```
+public class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        if(nums.length == 0){
+            return false;
+        }else{
+            Map m = new HashMap();
+            for(int val : nums){
+                m.put(val,1);
+            }
+            if(m.size() < nums.length){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+}
+```
+
+### 169. Majority Element
+```java
+- My Solution 
+public class Solution {
+    public int majorityElement(int[] nums) {
+        int result = 0;
+        Map<Integer, Integer> m = new HashMap<Integer, Integer>();
+        for (int val : nums) {
+            if (m.containsKey(val)) {
+                m.put(val,m.get(val) + 1);
+            }else {
+                m.put(val, 1);
+            }
+            if (m.get(val) > nums.length / 2) {
+                result = val;
+                break;
+            }
+        }
+        return result;
+    }
+}
+
+- better Solution
+public class Solution {
+    public int majorityElement3(int[] nums) {
+        int count=0, ret = 0;
+        for (int num: nums) {
+            if (count==0)
+                ret = num;
+            if (num!=ret)
+                count--;
+            else
+                count++;
+        }
+        return ret;
+    }
+}
+
+```
