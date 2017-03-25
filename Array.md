@@ -263,8 +263,8 @@ public class Solution {
 ```
 
 ### 169. Majority Element
+- My Solution
 ```java
-- My Solution 
 public class Solution {
     public int majorityElement(int[] nums) {
         int result = 0;
@@ -283,8 +283,9 @@ public class Solution {
         return result;
     }
 }
-
+```
 - better Solution
+```java
 public class Solution {
     public int majorityElement3(int[] nums) {
         int count=0, ret = 0;
@@ -300,4 +301,101 @@ public class Solution {
     }
 }
 
+```
+### 167. Two Sum II - Input array is sorted
+```java
+public class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        if (numbers.length < 2) {
+            return null;
+        }else {
+            int[] result = new int[2];
+            int l = 0;
+            int r = numbers.length - 1;
+            while (l < r) {
+                int sum = numbers[l] + numbers[r];
+                if (sum == target) {
+                    result[0] = l + 1;
+                    result[1] = r + 1;
+                    break;
+                }else if (sum < target) {
+                    l++;
+                }else {
+                    r--;
+                }
+            }
+            return result;
+        }
+    }
+}
+```
+### 88. Merge Sorted Array
+- My Solution
+```java
+public class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        if (m == 0){
+            for (int i = 0; i < n; i++) {
+                nums1[i] = nums2[i];
+            }
+        }else{
+            if (n != 0) {
+                int i = m - 1;
+                int j = n - 1;
+                int k = m + n - 1;
+                while(k >= 0) {
+                    if (nums1[i] >= nums2[j]) {
+                        nums1[k--] = nums1[i--];
+                        if (i < 0) {
+                            while (k >= 0) {
+                                nums1[k--] = nums2[j--];
+                            }
+                            break;
+                        }
+                    }else {
+                        nums1[k--] = nums2[j--];
+                        if (j < 0) {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+- Better Solution
+```java
+class Solution {
+    public void merge(int A[], int m, int B[], int n) {
+        int i=m-1;
+        int j=n-1;
+        int k = m+n-1;
+        while(i >=0 && j>=0)
+        {
+            if(A[i] > B[j])
+                A[k--] = A[i--];
+            else
+                A[k--] = B[j--];
+        }
+        while(j>=0)
+            A[k--] = B[j--];
+    }
+}
+```
+
+### 53. Maximum Subarray
+```java
+public class Solution {
+    public int maxSubArray(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            max = Math.max(sum, max);
+            sum = Math.max(sum, 0);
+        }
+        return max;
+    }
+}
 ```
