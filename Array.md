@@ -399,3 +399,63 @@ public class Solution {
     }
 }
 ```
+
+### 485. Max Consecutive Ones
+```java
+public class Solution {
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int max = 0;
+        int tmp = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) {
+                tmp += 1;
+            }else {
+                tmp = 0;
+            }
+            if (tmp > max) {
+                max = tmp;
+            }
+        }
+        return max;
+    }
+}
+```
+
+### 283. Move Zeroes
+- my solution
+```java
+public class Solution {
+    public void moveZeroes(int[] nums) {
+        if (nums.length > 1) {
+            int i = 0;
+            int numOfZero = 0;
+            while (i < nums.length - numOfZero) {
+                if (nums[i] == 0) {
+                    for (int j = i; j < nums.length - 1; j++) {
+                        nums[j] = nums[j + 1];
+                    }
+                    nums[nums.length - 1] = 0;
+                    numOfZero += 1;
+                }else {
+                    i++;
+                }
+            }
+        }
+    }
+}
+```
+- better solution
+```java
+public void moveZeroes(int[] nums) {
+    if (nums == null || nums.length == 0) return;        
+
+    int insertPos = 0;
+    for (int num: nums) {
+        if (num != 0) nums[insertPos++] = num;
+    }        
+
+    while (insertPos < nums.length) {
+        nums[insertPos++] = 0;
+    }
+}
+```
