@@ -1,3 +1,7 @@
+# LinkedList
+
+## 不会做的题目: 2,445
+
 - 237.Delete Node in a Linked List
 ```java
 	/**
@@ -125,4 +129,59 @@
 	        return head;
 	    }
 	}
+```
+
+- 2. Add Two Numbers
+```java
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode prev = new ListNode(0);
+        ListNode head = prev;
+        int carry = 0;
+        while (carry !=0 || l1 != null || l2 != null) {
+            ListNode cur = new ListNode(0);
+            int sum = ((l1 == null) ? 0: l1.val) +  ((l2 == null) ? 0: l2.val) + carry;
+            cur.val = sum % 10;
+            carry = sum / 10;
+            prev.next = cur;
+            prev = cur;
+            
+            l1 = (l1 == null) ? l1 : l1.next;
+            l2 = (l2 == null) ? l2 : l2.next;
+        }
+        return head.next;
+    }
+}
+```
+- 445.Add Two Numbers II
+```
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        Stack<Integer> s1 = new Stack<Integer>();
+        Stack<Integer> s2 = new Stack<Integer>();
+        
+        while(l1 != null) {
+            s1.push(l1.val);
+            l1 = l1.next;
+        };
+        while(l2 != null) {
+            s2.push(l2.val);
+            l2 = l2.next;
+        }
+        
+        int sum = 0;
+        ListNode list = new ListNode(0);
+        while (!s1.empty() || !s2.empty()) {
+            if (!s1.empty()) sum += s1.pop();
+            if (!s2.empty()) sum += s2.pop();
+            list.val = sum % 10;
+            ListNode head = new ListNode(sum / 10);
+            head.next = list;
+            list = head;
+            sum /= 10;
+        }
+        
+        return list.val == 0 ? list.next : list;
+    }
+}
 ```
