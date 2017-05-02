@@ -60,3 +60,22 @@ public class Solution {
     }
 }
 ```
+
+### 557. Reverse Words in a String III
+- solution
+```java
+public class Solution {
+    public String reverseWords(String s) {
+        String[] arr = s.split("\\s+");
+        StringBuffer sb = new StringBuffer();
+        for (String str : arr) {
+            StringBuffer temp = new StringBuffer(str);
+            sb.append(temp.reverse());
+            sb.append(" ");
+        }
+        sb.setLength(sb.length() - 1);
+        return sb.toString();
+    }
+}
+```
+
