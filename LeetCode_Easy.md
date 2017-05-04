@@ -1,9 +1,9 @@
 # LeetCode(Easy)
 
 ## 1.汇总
-- 未能独立解决 500
-- 独立解决，需要改进
-- 完全独立解决 561,461,566,476
+- 未能独立解决 500,
+- 独立解决，需要改进 496,
+- 完全独立解决 561,461,566,557,476,412,344,463
 
 ## 2.题目
 
@@ -126,4 +126,111 @@ public class Solution {
     }
 }
 ```
+
+### 412. Fizz Buzz
+```
+public class Solution {
+    public List<String> fizzBuzz(int n) {
+        List<String> list = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            if ((i % 3 == 0) && (i % 5 == 0)) {
+                list.add("FizzBuzz");
+            }else if (i % 3 == 0) {
+                list.add("Fizz");
+            }else if (i % 5 == 0) {
+                list.add("Buzz");
+            }else {
+                list.add(String.valueOf(i));
+            }
+        }
+        return list;
+    }
+}
+```
+
+### 344. Reverse String
+```java
+public class Solution {
+    public String reverseString(String s) {
+        StringBuffer sb = new StringBuffer(s);
+        return sb.reverse().toString();
+    }
+}
+```
+
+### 496. Next Greater Element I
+- solution
+```
+public class Solution {
+    public int[] nextGreaterElement(int[] findNums, int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            boolean flag = false;
+            for (int j = i; j < nums.length; j++) {
+                if (nums[i] < nums[j]) {
+                    map.put(nums[i], nums[j]);
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag == false) {
+                map.put(nums[i], -1);
+            }
+        }
+        int[] result = new int[findNums.length];
+        for (int i = 0; i < findNums.length; i++) {
+            result[i] = map.get(findNums[i]);
+        }
+        return result;
+    }
+}
+```
+- better solution
+```java
+public int[] nextGreaterElement(int[] findNums, int[] nums) {
+    Map<Integer, Integer> map = new HashMap<>(); // map from x to next greater element of x
+    Stack<Integer> stack = new Stack<>();
+    for (int num : nums) {
+        while (!stack.isEmpty() && stack.peek() < num)
+            map.put(stack.pop(), num);
+        stack.push(num);
+    }   
+    for (int i = 0; i < findNums.length; i++)
+        findNums[i] = map.getOrDefault(findNums[i], -1);
+    return findNums;
+}
+```
+
+### 463. Island Perimeter
+```java
+public class Solution {
+    public int islandPerimeter(int[][] grid) {
+        int perimeter = 0;
+        if (grid != null) {
+            int row = grid.length;
+            int col = grid[0].length;
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < col; j++) {
+                    if(grid[i][j] == 1) {
+                        perimeter += 4;
+                        if (j != col - 1) {
+                            if (grid[i][j + 1] == 1) {
+                                perimeter -= 2;
+                            }
+                        }
+                        if (i != row - 1) {
+                            if (grid[i + 1][j] == 1) {
+                                perimeter -= 2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return perimeter;
+    }
+}
+```
+
+
 
