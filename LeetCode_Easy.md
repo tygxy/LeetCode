@@ -1,9 +1,9 @@
 # LeetCode(Easy)
 
 ## 1.汇总
-- 未能独立解决 500,
-- 独立解决，需要改进 496,
-- 完全独立解决 561,461,566,557,476,412,344,463
+- 未能独立解决 500,292,
+- 独立解决，需要改进 496,136,520
+- 完全独立解决 561,461,566,557,476,412,344,463,485
 
 ## 2.题目
 
@@ -232,5 +232,107 @@ public class Solution {
 }
 ```
 
+### 292. Nim Game
+```java
+public class Solution {
+    public boolean canWinNim(int n) {
+        if (n % 4 != 0) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+}
+```
+
+### 485. Max Consecutive Ones
+```java
+public class Solution {
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int max = 0;
+        int tmp = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                tmp = 0;
+            }else {
+                tmp += 1;
+            }
+            if (tmp > max) {
+                max = tmp;
+            }
+        }
+        return max;
+    }
+}
+```
+
+### 136. Single Number
+- solution
+```
+public class Solution {
+    public int singleNumber(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            set.add(nums[i]);
+            sum += nums[i];
+        }
+        Iterator<Integer> it = set.iterator();
+        while (it.hasNext()) {
+            sum -= (2 * (Integer)it.next());
+        }
+        return -sum;
+    }
+}
+```
+- better solution
+```java
+public class Solution {
+    public int singleNumber(int[] nums) {
+        int result = 0;
+        for (int i = 0; i < nums.length; i++) {
+            result ^= nums[i];
+        }
+        return result;
+    }
+}
+```
+
+### 520. Detect Capital
+- solution
+```
+public class Solution {
+    public boolean detectCapitalUse(String word) {
+        if (word != null) {
+            if (word.toLowerCase() == word) {
+                return true;
+            }else if (word.toUpperCase() == word) {
+                return true;
+            }else {
+                char[] arr = word.toCharArray();
+                for (int i = 0; i < arr.length; i++) {
+                    if (arr[i] >= 'A' && arr[i] <= 'Z' && i != 0) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }else {
+            return false;
+        }
+    }
+}
+```
+- better solution
+```
+public class Solution {
+    public boolean detectCapitalUse(String word) {
+        int cnt = 0;
+        for(char c: word.toCharArray()) if('Z' - c >= 0) cnt++;
+        return ((cnt==0 || cnt==word.length()) || (cnt==1 && 'Z' - word.charAt(0)>=0));
+    }
+}
+
+```
 
 
