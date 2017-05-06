@@ -1,11 +1,15 @@
 # LeetCode(Easy)
 
 ## 1.汇总
-- 未能独立解决 500,292,
-- 独立解决，需要改进 496,136,520
+- 未能独立解决 500,292,448,104,
+- 独立解决，需要改进 496,136,520,521,
 - 完全独立解决 561,461,566,557,476,412,344,463,485
 
-## 2.题目
+## 2.规律
+- 找一个不同的题，考虑xor
+    - 0 ^ A = A; A ^ A = 0
+
+## 3.题目
 
 ### 561. Array Partition I
 ```java
@@ -334,5 +338,115 @@ public class Solution {
 }
 
 ```
+### 448. Find All Numbers Disappeared in an Array
+```java
+public class Solution {
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[Math.abs(nums[i]) - 1] > 0) {
+                nums[Math.abs(nums[i]) - 1] = -nums[Math.abs(nums[i]) - 1];
+            }
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) {
+                list.add(i + 1);
+            }
+        }
+        return list;
+    }
+}
+```
 
+### 521. Longest Uncommon Subsequence I
+```java
+public class Solution {
+    public int findLUSlength(String a, String b) {
+        if (a.length() != b.length()) {
+            return Math.max(a.length(), b.length());
+        }else {
+            return a.contains(b) ? -1 : a.length();
+        }
+    }
+}
+```
+
+### 104. Maximum Depth of Binary Tree
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int maxDepth = 0;
+        Stack<TreeNode> stack = new Stack<>();
+        Stack<Integer> sub = new Stack<>();
+        stack.push(root);
+        sub.push(1);
+        while (!stack.isEmpty()) {
+            TreeNode p = stack.pop();
+            int tempVal = sub.pop();
+            if (p.left == null && p.right == null) {
+                maxDepth = Math.max(maxDepth, tempVal);
+            }else {
+                if (p.left != null) {
+                    stack.push(p.left);
+                    sub.push(tempVal + 1);
+                }
+                if (p.right != null) {
+                    stack.push(p.right);
+                    sub.push(tempVal + 1);
+                }
+            }
+        }
+        return maxDepth;
+    }
+}
+```
+### 389. Find the Difference
+- solution
+```java
+public class Solution {
+    public char findTheDifference(String s, String t) {
+        List<Character> listS = new ArrayList<>();
+        List<Character> listT = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            listS.add(s.charAt(i));
+        }
+        for (int i = 0; i < t.length(); i++) {
+            listT.add(t.charAt(i));
+        }
+        Collections.sort(listS);
+        Collections.sort(listT);
+        for (int i = 0; i < listT.size() - 1; i++) {
+            if (listS.get(i) != listT.get(i)) {
+                return listT.get(i);
+            }
+        }
+        return listT.get(listT.size() - 1);
+    }
+}
+```
+- better solution
+```
+public char findTheDifference(String s, String t) {
+    char c = 0;
+    for (int i = 0; i < s.length(); ++i) {
+        c ^= s.charAt(i);
+    }
+    for (int i = 0; i < t.length(); ++i) {
+        c ^= t.charAt(i);
+    }
+    return c;
+}
+```
 
