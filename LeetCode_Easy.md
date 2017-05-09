@@ -1,8 +1,8 @@
 # LeetCode(Easy)
 
 ## 1.汇总
-- 未能独立解决 500,292,448,104,
-- 独立解决，需要改进 496,136,520,521,
+- 未能独立解决 500,292,448,104,371,
+- 独立解决，需要改进 496,136,520,521,258
 - 完全独立解决 561,461,566,557,476,412,344,463,485
 
 ## 2.规律
@@ -450,3 +450,91 @@ public char findTheDifference(String s, String t) {
 }
 ```
 
+### 371. Sum of Two Integers
+```java
+// 简而言之就是用异或算不带进位的和，用与并左移1位来算进位，然后把两者加起来即可
+public class Solution {
+    public int getSum(int a, int b) {
+        if (a == 0) return b;
+        if (b == 0) return a;
+        while (b != 0) {
+            int carry = a & b;
+            a = a ^ b;
+            b = carry << 1;
+        }
+        return a;
+    }
+}
+```
+### 258. Add Digits
+- solution
+```java
+public class Solution {
+    public int addDigits(int num) {
+        String result = String.valueOf(num);
+        while (result.length() > 1) {
+            int sum = 0;
+            for (int i = 0; i < result.length(); i++) {
+                sum += Integer.parseInt(String.valueOf(result.charAt(i)));
+            }
+            result = String.valueOf(sum);
+        }
+        return Integer.parseInt(result);
+    }
+}
+```
+- better solution
+```java
+public class Solution {
+    public int addDigits(int num) {
+        if (num == 0){
+            return 0;
+        }
+        if (num % 9 == 0){
+            return 9;
+        }
+        else {
+            return num % 9;
+        }
+    }
+}
+```
+### 283. Move Zeroes
+- solution
+```java
+public class Solution {
+    public void moveZeroes(int[] nums) {
+         for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] == 0) {
+                int j = i + 1;
+                while (j < nums.length) {
+                    if (nums[j] != 0) {
+                        break;
+                    }
+                    if (j == nums.length - 1) {
+                        break;
+                    }
+                    j++;
+                }
+                nums[i] = nums[j];
+                nums[j] = 0;
+            }
+        }
+    }
+}
+```
+- better solution
+```
+public void moveZeroes(int[] nums) {
+    if (nums == null || nums.length == 0) return;        
+
+    int insertPos = 0;
+    for (int num: nums) {
+        if (num != 0) nums[insertPos++] = num;
+    }        
+
+    while (insertPos < nums.length) {
+        nums[insertPos++] = 0;
+    }
+}
+```
