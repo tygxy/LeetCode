@@ -1,13 +1,14 @@
 # LeetCode(Easy)
 
 ## 1.汇总
-- 未能独立解决 500,292,448,104,371,
-- 独立解决，需要改进 496,136,520,521,258
-- 完全独立解决 561,461,566,557,476,412,344,463,485
+- 未能独立解决 500,292,448,104,371,226
+- 独立解决，需要改进 496,136,520,521,258,283,492
+- 完全独立解决 561,461,566,557,476,412,344,463,485,575
 
 ## 2.规律
 - 找一个不同的题，考虑xor
     - 0 ^ A = A; A ^ A = 0
+- 树的问题，很多都是靠栈来解决
 
 ## 3.题目
 
@@ -524,7 +525,7 @@ public class Solution {
 }
 ```
 - better solution
-```
+```java
 public void moveZeroes(int[] nums) {
     if (nums == null || nums.length == 0) return;        
 
@@ -536,5 +537,103 @@ public void moveZeroes(int[] nums) {
     while (insertPos < nums.length) {
         nums[insertPos++] = 0;
     }
+}
+```
+### 575. Distribute Candies
+```java
+public class Solution {
+    public int distributeCandies(int[] candies) {
+        Set<Integer> set = new HashSet<Integer>();
+        for (int c : candies) {
+            set.add(c);
+        }
+        if (set.size() < candies.length / 2) {
+            return set.size();
+        }else {
+            return candies.length / 2;
+        }
+    }
+}
+```
+### 226. Invert Binary Tree
+```java
+public class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null) {
+            return null;
+        }
+        TreeNode tmpRight = root.right;
+        root.right = invertTree(root.left);
+        root.left = invertTree(tmpRight);
+        return root;
+    }
+}
+```
+```java
+public class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null) {
+            return null;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        
+        while(!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            TreeNode left = node.left;
+            node.left = node.right;
+            node.right = left;
+            
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+        }
+        return root;
+    }
+}
+```
+### 492. Construct the Rectangle
+- mysolution
+```java
+public class Solution {
+    public int[] constructRectangle(int area) {
+        int[] result = {area,1};
+        int tmpWight;
+        int tmpLength;
+        for (int i = area; i >= 1; i--) {
+            if (area % i == 0) {
+                tmpLength = i;
+                tmpWight = area / i;
+                if (Math.abs(tmpLength - tmpWight) < Math.abs(result[0] - result[1]) ) {
+                    result[0] = tmpLength;
+                    result[1] = tmpWight;
+                }
+                if (tmpLength < tmpWight) {
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
+}
+``` 
+- better solution
+```java
+public int[] constructRectangle(int area) {
+    int[] result = new int[2];
+    if(area == 0){
+        return result;
+    }
+    int a = (int)Math.sqrt(area);
+    while(area%a != 0){
+        a--;
+    }
+    int b = area/a;
+    result[0] = b;
+    result[1] = a;
+    return result;
 }
 ```
