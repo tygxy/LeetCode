@@ -1,7 +1,7 @@
 # LeetCode(Easy)
 
 ## 1.汇总
-- 未能独立解决 500,292,448,104,371,226
+- 未能独立解决 500,292,448,104,371,226,167
 - 独立解决，需要改进 496,136,520,521,258,283,492
 - 完全独立解决 561,461,566,557,476,412,344,463,485,575
 
@@ -637,3 +637,26 @@ public int[] constructRectangle(int area) {
     return result;
 }
 ```
+### 167. Two Sum II - Input array is sorted
+```java
+public class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int[] result = new int[2];
+        int l = 0;
+        int r = numbers.length - 1;
+        while (l != r) {
+            if (numbers[l] + numbers[r] == target) {
+                result[0] = l + 1;
+                result[1] = r + 1;
+                break;
+            }else if (numbers[l] + numbers[r] < target) {
+                l++;
+            }else {
+                r--;
+            }
+        }
+        return result;
+    }
+}
+```
+### 
