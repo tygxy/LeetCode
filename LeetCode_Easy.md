@@ -9,6 +9,17 @@
 - 找数组/字符串中只有一个是不同，其他都相同的题，考虑xor
     - 0 ^ A = A; A ^ A = 0
 - 树的问题，很多都是靠栈来解决
+- 字符串问题，要考虑是否区分大小写;拼接字符串串，首选StringBuffer
+```
+public String joinWords(String[] words) {
+    StringBuffer sb = new StringBuffer();
+    for (String w : words) {
+        sb.append(w);
+    }
+    return sb.toString();
+}
+```
+- 链表问题，考虑快慢指针(两个指针保持固定距离；或者一个走一步，一个走两步)
 
 ## 3.题目
 
